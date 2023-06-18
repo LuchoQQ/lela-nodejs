@@ -3,7 +3,7 @@ require("dotenv").config();
 let URI = process.env.URI_WEBHOOK_WPP;
 let TOKEN = process.env.TOKEN_WEBHOOK;
 
-const sendWpp = async (to, content) => {
+const sendWpp = async (to, prompt) => {
     const body = {
         messaging_product: "whatsapp",
         recipient_type: "individual",
@@ -12,18 +12,22 @@ const sendWpp = async (to, content) => {
         text: {
             // the text object
             preview_url: false,
-            body: content,
+            body: prompt,
         },
     };
     const options = {
-        headers: { "Authorization": `Bearer ${TOKEN}` },
+        headers: { Authorization: `Bearer ${TOKEN}` },
     };
 
-    let result = await axios
-        .post(URI, body, options)
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
-    return result;
+    try {
+        let result = await axios
+            .post(URI, body, options)
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log("WPP", err));
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 module.exports = {

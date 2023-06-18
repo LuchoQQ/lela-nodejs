@@ -6,10 +6,13 @@ const verify_token = process.env.VERIFY_TOKEN;
 
 const createMessage = async (req, res) => {
     const to = req.body.entry[0].changes[0].value.messages[0].from;
-    const messageReceived =
-        req.body.entry[0].changes[0].value.messages[0].text.body;
+    const messageReceived = req.body.entry[0].changes[0].value.messages[0].text.body;
 
-    sendPrompt(messageReceived).then((res) => sendWpp(to, res));
+    const prompt = sendPrompt(messageReceived).then((prompt) => sendWpp(to, prompt))
+    /* if (prompt) {
+        sendWpp(to, prompt)
+    } */
+    //const wppSended = sendWpp(to, prompt)
     return res.json({
         status: "ok",
     });
