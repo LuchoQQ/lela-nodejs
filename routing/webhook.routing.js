@@ -1,9 +1,13 @@
-const express = require('express')
-const { createMessage } = require('../services/webhook.services')
+const express = require("express");
+const {
+    createMessage,
+    validateToken,
+} = require("../services/webhook.services");
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/', createMessage)
+router.post("/", createMessage);
 
+router.get("/", validateToken);
 
-module.exports = router
+module.exports = router;
