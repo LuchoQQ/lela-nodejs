@@ -7,9 +7,10 @@ app.use(express.json())
 
 //routing
 const webhookRouting = require('./routing/webhook.routing')
-app.use(webhookRouting)
+app.use('/webhook',webhookRouting)
 
 
 
 //server
-app.listen(process.env.PORT | 3000);
+app.listen(process.env.PORT | 3000)
+console.log('server running')

@@ -1,9 +1,9 @@
 const express = require('express')
-const { replyMessage } = require('../services/webook.services')
+const { createMessage } = require('../services/webhook.services')
 
 const router = express.Router()
 
-router.post('/webhook', replyMessage)
+router.post('/', createMessage)
 
 
 module.exports = router
