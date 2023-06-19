@@ -20,13 +20,10 @@ const sendWpp = async (to, prompt) => {
     };
 
     try {
-        let result = await axios
-            .post(URI, body, options)
-            .then((res) => console.log(res.data))
-            .catch((err) => console.log("WPP", err));
-        return result;
+        let result = await axios.post(URI, body, options);
+        return result.data;
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };
 

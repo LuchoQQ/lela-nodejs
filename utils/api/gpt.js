@@ -10,10 +10,10 @@ const sendPrompt = async (prompt,) => {
         const chatCompletion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: [{ role: "user", content: prompt }],
-        })
-        return chatCompletion.data.choices[0].message.content
+        }).then((res) => res.data)
+        return chatCompletion.choices[0].message.content
     } catch (error) {
-        console.log('GPT ERROR', error);
+        console.log('GPT ERROR');
     }
 };
 
