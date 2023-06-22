@@ -68,6 +68,8 @@ const createMessage = async (req, res) => {
             await sendWpp(to, response.defaultMessage);
         } else {
             const prompt = await sendPrompt(messageReceived, history)
+            await addMessage("user", messageReceived, user.id)
+            await addMessage("assistant", messageReceived, user.id)
             await sendWpp(to, prompt)
             console.log(prompt)
            // const prompt = await sendPrompt(messageReceived, history);
