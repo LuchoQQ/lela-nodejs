@@ -24,6 +24,7 @@ const sendPrompt = async (prompt, history) => {
             .then((res) => res.data);
         return chatCompletion.choices[0].message.content;
     } catch (error) {
+        console.log(error)
         console.log("GPT ERROR");
     }
 };
