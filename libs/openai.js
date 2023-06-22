@@ -21,7 +21,9 @@ const sendPrompt = async (prompt, history) => {
                     { role: "user", content: prompt },
                 ],
             })
-            .then((res) => res.data);
+            .then((res) => {
+                return res.data
+            })
         return chatCompletion.choices[0].message.content;
     } catch (error) {
         console.log(error)
