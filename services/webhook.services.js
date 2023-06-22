@@ -60,43 +60,28 @@ const createMessage = async (req, res) => {
         const history = await Message.find({ userId: user.id }).select(
             "-userId  -_id -createdAt -updatedAt -__v"
         );
-       // console.log(history);
+        console.log(history);
 
         // console.log(history)
         if (history.length > 0 === false) {
-            const response = await sendDefaultMessage(user.id).then((res) => sendWpp(to, res.defaultMessage)).catch(err => console.log(err))
+            const response = await sendDefaultMessage(user.id)
+                .then((res) => sendWpp(to, res.defaultMessage))
+                .catch((err) => console.log(err));
         } else {
-            const prompt = await sendPrompt(messageReceived, history);
-            sendWpp(to, prompt);
-            addMessage("user", messageReceived, user.id).then(() =>
+           /*  const prompt = await sendPrompt(messageReceived, history);
+            sendWpp(to, prompt)
+            console.log('1 mensaje')
+            addMessage("user", messageReceived, user.id).then(() => {
+                console.log('2 mensaje')
                 addMessage("assistant", prompt, user.id)
+            }
+                
             );
 
-            return res.json();
+            return res.json(); */
         }
 
         return res.json("hola");
-        //const history = await Message.find();
-
-        /* const prompt = await sendPrompt(messageReceived, history);
-        if (prompt) {
-            (async () => {
-                const newMessage = new Message({
-                    role: "system",
-                    content: prompt,
-                    //userId: user._id,
-                });
-                await newMessage.save();
-            })();
-            sendWpp(to, prompt);
-            return res.json({
-                status: "ok",
-            });
-        } else {
-            return res.json({
-                status: "failed",
-            });
-        } */
     }
 };
 
