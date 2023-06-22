@@ -60,25 +60,19 @@ const createMessage = async (req, res) => {
         const history = await Message.find({ userId: user.id }).select(
             "-userId  -_id -createdAt -updatedAt -__v"
         );
-        console.log(history);
+        //console.log(history);
 
         // console.log(history)
         if (history.length > 0 === false) {
-            const response = await sendDefaultMessage(user.id)
-                .then((res) => sendWpp(to, res.defaultMessage))
-                .catch((err) => console.log(err));
+            const response = await sendDefaultMessage(user.id);
+            await sendWpp(to, response.defaultMessage);
         } else {
-           /*  const prompt = await sendPrompt(messageReceived, history);
-            sendWpp(to, prompt)
-            console.log('1 mensaje')
-            addMessage("user", messageReceived, user.id).then(() => {
-                console.log('2 mensaje')
-                addMessage("assistant", prompt, user.id)
-            }
-                
-            );
+            const prompt = await sendPrompt(messageReceived, history);
+            //await sendWpp(to, prompt);
+            await addMessage("user", messageReceived, user.id);
+            await addMessage("assistant", prompt, user.id);
 
-            return res.json(); */
+            return res.json();
         }
 
         return res.json("hola");
