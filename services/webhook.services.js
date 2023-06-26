@@ -55,6 +55,7 @@ const createMessage = async (req, res) => {
             user = await createUser(to);
         }
 
+        console.log(req.body)
         const Message = require("../models/Message");
 
         const history = await Message.find({ userId: user.id }).select(
